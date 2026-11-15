@@ -1,0 +1,18 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ouvrir dans Claude</title><meta name="robots" content="noindex">
+<style>body{font:17px/1.5 system-ui,sans-serif;background:#141218;color:#eee;display:grid;place-items:center;min-height:100vh;margin:0;padding:16px;box-sizing:border-box;text-align:center}
+a{display:inline-block;background:#8b6cf0;color:#fff;padding:14px 22px;border-radius:12px;text-decoration:none;font-weight:600;margin:8px}
+p{color:#aaa;max-width:420px}</style></head><body><div>
+<a id="go" href="#">Ouvrir dans l'appli Claude</a>
+<p>Si une fenêtre demande « Ouvrir Claude ? », accepte (coche « toujours autoriser » pour ne plus la voir). Cet onglet se ferme seul ; s'il reste ouvert, ferme-le.</p></div>
+<script>
+/* Le texte voyage après le # : il n'est jamais envoyé au serveur. */
+const t = decodeURIComponent(location.hash.slice(1) || "");
+const lien = "claude://code/new?q=" + encodeURIComponent(t);
+document.getElementById("go").href = lien;
+if (t) {
+  location.href = lien;
+  /* Onglet ouvert par le bouton, une seule page dans son historique : le navigateur laisse le script le fermer. */
+  setTimeout(() => { window.close(); }, 1500);
+}
+</script></body></html>
