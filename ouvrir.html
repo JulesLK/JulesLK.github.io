@@ -7,8 +7,15 @@ p{color:#aaa;max-width:420px}</style></head><body><div>
 <p>Si une fenêtre demande « Ouvrir Claude ? », accepte (coche « toujours autoriser » pour ne plus la voir). Cet onglet se ferme seul ; s'il reste ouvert, ferme-le.</p></div>
 <script>
 /* Le texte voyage après le # : il n'est jamais envoyé au serveur. */
-const t = decodeURIComponent(location.hash.slice(1) || "");
-const lien = "claude://code/new?q=" + encodeURIComponent(t);
+/* "#chat:texte" ouvre une discussion Claude normale ; sinon une session Claude Code (tableau de bord serveur). */
+let t = decodeURIComponent(location.hash.slice(1) || "");
+let lien;
+if (t.startsWith("chat:")) {
+  t = t.slice(5);
+  lien = "claude://claude.ai/new?q=" + encodeURIComponent(t);
+} else {
+  lien = "claude://code/new?q=" + encodeURIComponent(t);
+}
 document.getElementById("go").href = lien;
 if (t) {
   location.href = lien;
